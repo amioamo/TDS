@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 
 def get_pvalues(data):
     p_value=[]
-    for i in range(data.shape[1]-2):
+    for i in range(data.shape[1]-1):
         df = pd.DataFrame({'x': data.iloc[:,i], 'y': data['y']})
         df['intecept']=1
         try:
@@ -41,11 +41,11 @@ class process_1():
         self.data_B = data_B
 
     def fit(self):
-        p_A = pd.DataFrame({'SNP': data_A.columns[:-1]})
-        p_B = pd.DataFrame({'SNP': data_B.columns[:-1]})
+        p_A = pd.DataFrame({'SNP': self.data_A.columns[:-1]})
+        p_B = pd.DataFrame({'SNP': self.data_B.columns[:-1]})
 
-        p_A['p_value'] = get_pvalues(data_A)
-        p_B['p_value'] = get_pvalues(data_B)
+        p_A['p_value'] = get_pvalues(self.data_A)
+        p_B['p_value'] = get_pvalues(self.data_B)
 
         return p_A, p_B
 
@@ -148,7 +148,7 @@ class process_2():
 
         p_values = pd.DataFrame({'SNP': column_list})
 
-        for idn, n in enumerate(nss):
+        for idn, n in enumerate(self.nss):
             p_uni_sample = dict(zip(column_list, p_value_uni[:, idn]))
 
             p_values[str(idn + 1)] = p_values['SNP'].map(p_uni_sample)
@@ -164,7 +164,7 @@ class process_2():
         tp_ = []
         fn_ = []
 
-        for idn in range(len(nss)):
+        for idn in range(len(self.nss)):
             predict_label = vote_label[str(idn + 1)]
             tn, fp, fn, tp = confusion_matrix(true_label, predict_label).ravel()
             tp_.append(tp)
@@ -177,7 +177,7 @@ class process_2():
 
         predict_label = pd.DataFrame({'SNP': self.data_A.columns[:-1]})
 
-        for idn in range(len(nss)):
+        for idn in range(len(self.nss)):
             label_iter = np.zeros((len(self.data_A.columns[:-1])))
             idx_list = [list(self.data_A.columns[:-1]).index(snp) for snp in self.insig_list]
 

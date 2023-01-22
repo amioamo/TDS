@@ -14,12 +14,12 @@ def main(args):
 
     seeds = [0, 100, 210, 970, 3506, 23525, 32451, 2466, 1242]
 
-    iters = args['t']
-    batch_size = args['b']
+    iters = int(args['t'])
+    batch_size = int(args['b'])
 
     thresholds = {1: args['thre'], 0: 1}
 
-    for i_iter in range(len(iters)):
+    for i_iter in range(iters):
         ### Starting Phase 1 #########
 
         step1_path = args['out_dir'] + str(i_iter) + '/step1/'
