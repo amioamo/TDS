@@ -1,0 +1,10 @@
+itertools==0.0.2
+matplotlib==3.5.2
+numpy==1.23.5
+pandas==1.4.2
+scikit_learn==1.0.2
+scipy==1.8.0
+seaborn==0.11.2
+statsmodels==0.13.2
+tqdm==4.64.1
+notebook==6.4.11
