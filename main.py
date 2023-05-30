@@ -4,8 +4,6 @@ from model import *
 from utils import (
     data_loader, save_results
 )
-import time
-import numpy as np
 
 def main(args):
     data_A = data_loader(args['dataset'], args['d_A'])
